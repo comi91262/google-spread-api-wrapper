@@ -63,7 +63,7 @@ fn main() {
   let url = format!("{}/d/{}/edit", GOOGLE_SPREADSHEETS_API_URL, args.input[0]);
   let result = request(&url);
   println!("{}", url);
-  println!("{:?}", result.unwrap());
+  println!("{:?}", std::str::from_utf8(&result.unwrap()).unwrap());
 }
 //lazy_static! {
 //    static ref CREATED_FILE_PATH: String = {
