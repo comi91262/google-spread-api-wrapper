@@ -1,0 +1,8 @@
+[package]
+name = "google-spread-api-wrapper"
+version = "0.1.0"
+authors = ["ykonomi <hgKaguyaToupako4er@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+getopts = "0.2.18"
