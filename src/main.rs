@@ -14,6 +14,7 @@
 // use std::fs::File;
 // use std::io::Write;
 
+
 use std::{env, process};
 use getopts::Options;
 
@@ -59,7 +60,7 @@ fn parse_args() -> Args {
 
 fn main() {
   let args = parse_args();
-  println!("{:?}", args);
+  println!("{:?}", format!("{}{}", GOOGLE_SPREADSHEETS_API_URL, args.input[0]));
 }
 //lazy_static! {
 //    static ref CREATED_FILE_PATH: String = {
@@ -68,6 +69,9 @@ fn main() {
 //        format!("{}/{}", working_directory, file_path)
 //    };
 //}
+
+const GOOGLE_SPREADSHEETS_API_URL: &'static str = "https://sheets.googleapis.com/v4/spreadsheets/";
+
 //const REQUEST_URL: &'static str = "https://html.spec.whatwg.org/entities.json";
 //const BOILERPLATE: &'static str = r#"pub static MINIMAL_ENTITIES: [(char, &'static str); 5] = [
 //    ('"', "&quot;"),
