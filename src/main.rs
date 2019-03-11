@@ -8,7 +8,7 @@
 // #[macro_use]
 // extern crate lazy_static;
 // 
-// use curl::easy::Easy;
+use curl::easy::Easy;
 // use regex::Regex;
 // use std::collections::BTreeMap;
 // use std::fs::File;
@@ -60,7 +60,10 @@ fn parse_args() -> Args {
 
 fn main() {
   let args = parse_args();
-  println!("{:?}", format!("{}{}", GOOGLE_SPREADSHEETS_API_URL, args.input[0]));
+  let url = format!("{}{}", GOOGLE_SPREADSHEETS_API_URL, args.input[0]);
+  let result = request(&url);
+  println!("{}", url);
+  println!("{:?}", result.unwrap());
 }
 //lazy_static! {
 //    static ref CREATED_FILE_PATH: String = {
@@ -93,25 +96,25 @@ const GOOGLE_SPREADSHEETS_API_URL: &'static str = "https://sheets.googleapis.com
 //    nodes: BTreeMap<String, EntityData>,
 //}
 //
-//fn request() -> Result<Vec<u8>, failure::Error> {
-//    let mut dst = Vec::new();
-//    let mut easy = Easy::new();
-//
-//    easy.url(REQUEST_URL)?;
-//
-//    {
-//        let mut transfer = easy.transfer();
-//        transfer
-//            .write_function(|data| {
-//                dst.extend_from_slice(data);
-//                Ok(data.len())
-//            })
-//            .unwrap();
-//        transfer.perform()?;
-//    }
-//
-//    Ok(dst)
-//}
+fn request(request_url: &str) -> Result<Vec<u8>, curl::Error> {
+    let mut dst = Vec::new();
+    let mut easy = Easy::new();
+
+    easy.url(request_url)?;
+
+    {
+        let mut transfer = easy.transfer();
+        transfer
+            .write_function(|data| {
+                dst.extend_from_slice(data);
+                Ok(data.len())
+            })
+            .unwrap();
+        transfer.perform()?;
+    }
+
+    Ok(dst)
+}
 //
 //fn parse_json(data: &str) -> Result<String, failure::Error> {
 //    let mut result_str = String::new();
