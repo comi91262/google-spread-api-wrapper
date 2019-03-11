@@ -60,7 +60,7 @@ fn parse_args() -> Args {
 
 fn main() {
   let args = parse_args();
-  let url = format!("{}{}", GOOGLE_SPREADSHEETS_API_URL, args.input[0]);
+  let url = format!("{}/d/{}/edit", GOOGLE_SPREADSHEETS_API_URL, args.input[0]);
   let result = request(&url);
   println!("{}", url);
   println!("{:?}", result.unwrap());
